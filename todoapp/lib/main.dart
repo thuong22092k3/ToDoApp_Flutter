@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'ListTask.dart';
+import 'screens/task_list_screen.dart';
 
 void main() {
-  runApp(ToDoApp());
+  runApp(TaskMasterApp());
 }
 
-class ToDoApp extends StatelessWidget {
+class TaskMasterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'To Do App',
+      title: 'Task Master',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Lato',
       ),
-      home: TaskList(),
+      home: TaskListScreen(),
     );
   }
 }

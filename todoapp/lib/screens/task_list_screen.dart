@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'Task.dart';
-import 'AddTask.dart';
+import '../models/task.dart';
+import 'add_task_screen.dart';
 
-class TaskList extends StatefulWidget {
+class TaskListScreen extends StatefulWidget {
   @override
-  _TaskListState createState() => _TaskListState();
+  _TaskListScreenState createState() => _TaskListScreenState();
 }
 
-class _TaskListState extends State<TaskList> {
-  final String title = "Danh sách ToDo";
+class _TaskListScreenState extends State<TaskListScreen> {
+  final String title = "Task Master";
   List<Task> taskList = [];
 
   void _addTaskItem(Task task) {
@@ -23,27 +23,27 @@ class _TaskListState extends State<TaskList> {
       appBar: AppBar(
         title: Text(
           this.title,
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
           IconButton(
             onPressed: () async {
               final Task? newTask = await Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AddTask()),
+                MaterialPageRoute(builder: (context) => AddTaskScreen()),
               );
               if (newTask != null) {
                 _addTaskItem(newTask);
               }
             },
             icon: Icon(
-              Icons.add,
+              Icons.add_circle_outline,
               color: Colors.white,
               size: 30,
             ),
           )
         ],
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
       ),
       body: ListView.builder(
@@ -51,21 +51,31 @@ class _TaskListState extends State<TaskList> {
         itemBuilder: (context, index) {
           final task = taskList[index];
           return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            color: Colors.green[50],
             margin: EdgeInsets.all(10),
             child: ListTile(
               leading: CircleAvatar(
                 child: Text('${index + 1}'),
-                backgroundColor: Colors.teal,
+                backgroundColor: Colors.greenAccent,
                 foregroundColor: Colors.white,
               ),
-              title: Text(task.title),
+              title: Text(
+                task.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green[900],
+                ),
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Mô tả: ${task.description}'),
-                  Text('Ngày: ${task.date.toLocal()}'.split(' ')[0]),
+                  Text('Description: ${task.description}'),
+                  Text('Date: ${task.date.toLocal()}'.split(' ')[0]),
                   Text(
-                    'Trạng thái: ${task.isCompleted ? "Hoàn thành" : "Chưa hoàn thành"}',
+                    'Status: ${task.isCompleted ? "Completed" : "Not Completed"}',
                   ),
                 ],
               ),

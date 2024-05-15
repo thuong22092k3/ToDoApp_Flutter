@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'Task.dart';
+import '../models/task.dart';
 
-class AddTask extends StatefulWidget {
+class AddTaskScreen extends StatefulWidget {
   @override
-  _AddTaskState createState() => _AddTaskState();
+  _AddTaskScreenState createState() => _AddTaskScreenState();
 }
 
-class _AddTaskState extends State<AddTask> {
-  final String title = "Thêm ToDo";
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  final String title = "Add New Task";
   DateTime selectedDate = DateTime.now();
 
   final TextEditingController titleController = TextEditingController();
@@ -33,9 +33,9 @@ class _AddTaskState extends State<AddTask> {
       appBar: AppBar(
         title: Text(
           this.title,
-          style: TextStyle(fontWeight: FontWeight.w700),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.greenAccent,
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -45,16 +45,20 @@ class _AddTaskState extends State<AddTask> {
             TextField(
               controller: titleController,
               decoration: InputDecoration(
-                labelText: 'Nhập tiêu đề',
+                labelText: 'Task Title',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.green[50],
               ),
             ),
             SizedBox(height: 10),
             TextField(
               controller: descriptionController,
               decoration: InputDecoration(
-                labelText: 'Mô tả',
+                labelText: 'Description',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.green[50],
               ),
             ),
             SizedBox(height: 10),
@@ -62,8 +66,10 @@ class _AddTaskState extends State<AddTask> {
               onTap: () => _selectDate(context),
               child: InputDecorator(
                 decoration: InputDecoration(
-                  labelText: 'Ngày cần làm',
+                  labelText: 'Due Date',
                   border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.green[50],
                 ),
                 child: Text(
                   "${selectedDate.toLocal()}".split(' ')[0],
@@ -74,7 +80,7 @@ class _AddTaskState extends State<AddTask> {
             SizedBox(height: 20),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
+                backgroundColor: Colors.greenAccent,
                 foregroundColor: Colors.white,
               ),
               onPressed: () {
@@ -85,7 +91,7 @@ class _AddTaskState extends State<AddTask> {
                 );
                 Navigator.pop(context, newTask);
               },
-              child: Text('Thêm'),
+              child: Text('Add Task'),
             ),
           ],
         ),
